@@ -1,9 +1,12 @@
 // venueSlice.js
 import { createSlice } from "@reduxjs/toolkit";
 
-export const venueSlice = createSlice({
+export const venueSlice = createSlice({//using createSlice from @reduxjs/toolkit.
   name: "venue",
-  initialState: [
+  
+  
+  initialState: [//The initial state consists of an array of venue objects
+    //each representing a rentable room in the venu
     {
       img: "https://pixabay.com/images/download/chairs-2181916_640.jpg",
       name: "Conference Room (Capacity:15)",
@@ -38,7 +41,7 @@ export const venueSlice = createSlice({
   ],
   reducers: {
    
-    incrementQuantity: (state, action) => {
+    incrementQuantity: (state, action) => {//This function handles incrementing the quantity of a venue item in the state.
       const { payload: index } = action;
       if (state[index]) {
         if (state[index].name === " Auditorium Hall (Capacity:200)" && state[index].quantity >= 3) {
@@ -46,7 +49,7 @@ export const venueSlice = createSlice({
         state[index].quantity++;
       }
     },
-    decrementQuantity: (state, action) => {
+    decrementQuantity: (state, action) => {//This function handles decrementing the quantity of a venue item in the state.
       const { payload: index } = action;
       if (state[index] && state[index].quantity > 0) {
         state[index].quantity--;

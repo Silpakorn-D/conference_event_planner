@@ -1,3 +1,4 @@
+// import the required dependencies.
 import React, { useState } from "react";
 import "./ConferenceEvent.css";
 import TotalCost from "./TotalCost";
@@ -6,28 +7,28 @@ import { incrementQuantity, decrementQuantity } from "./venueSlice";
 const ConferenceEvent = () => {
     const [showItems, setShowItems] = useState(false);
     const [numberOfPeople, setNumberOfPeople] = useState(1);
-    const venueItems = useSelector((state) => state.venue);
+    const venueItems = useSelector((state) => state.venue);//The useSelector() function retrieves venue items from the Redux store state.
     const dispatch = useDispatch();
-    const remainingAuditoriumQuantity = 3 - venueItems.find(item => item.name === "Auditorium Hall (Capacity:200)").quantity;
+    const remainingAuditoriumQuantity = 3 - venueItems.find(item => item.name === "Auditorium Hall (Capacity:200)").quantity;// user cannot request more than three.
 
     
     const handleToggleItems = () => {
         console.log("handleToggleItems called");
         setShowItems(!showItems);
     };
-
-    const handleAddToCart = (index) => {
+    const handleAddToCart = (index) => {//Defines event handlers to manage the increase quantities from the user interactions.
         if (venueItems[index].name === "Auditorium Hall (Capacity:200)" && venueItems[index].quantity >= 3) {
           return; 
         }
         dispatch(incrementQuantity(index));
       };
     
-      const handleRemoveFromCart = (index) => {
+      const handleRemoveFromCart = (index) => {//Defines event handlers to manage the decrease quantities from the user interactions.
         if (venueItems[index].quantity > 0) {
           dispatch(decrementQuantity(index));
         }
       };
+
     const handleIncrementAvQuantity = (index) => {
     };
 
@@ -47,16 +48,16 @@ const ConferenceEvent = () => {
     const ItemsDisplay = ({ items }) => {
 
     };
-    const calculateTotalCost = (section) => {
-        let totalCost = 0;
-        if (section === "venue") {
-          venueItems.forEach((item) => {
+    const calculateTotalCost = (section) => {//calculate the cost for all selected rooms.
+        let totalCost = 0;//Initialization of totalCost
+        if (section === "venue") {//the total cost for the venue items will be calculated.
+          venueItems.forEach((item) => {//Iteration over venueItems
             totalCost += item.cost * item.quantity;
           });
         }
         return totalCost;
       };
-    const venueTotalCost = calculateTotalCost("venue");
+    const venueTotalCost = calculateTotalCost("venue");//the total cost of the "venue" section is stored in the constant venueTotalCost
 
     const navigateToProducts = (idType) => {
         if (idType == '#venue' || idType == '#addons' || idType == '#meals') {
@@ -144,7 +145,7 @@ const ConferenceEvent = () => {
             </div>
           ))}
         </div>
-        <div className="total_cost">Total Cost: ${venueTotalCost}</div>
+        <div className="total_cost">Total Cost: ${venueTotalCost}</div>{/*displays the total cost of all selected venue items*/}
       </div>
 
                             {/*Necessary Add-ons*/}
